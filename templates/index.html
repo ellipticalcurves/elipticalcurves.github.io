@@ -68,3 +68,13 @@
         <p>Thanks for watching!</p>
       </blockquote>
 {%endblock content%}
+{%block scene%}
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.141.0/build/three.module.js"
+  }
+}
+  </script>
+<script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+{%endblock scene%}
