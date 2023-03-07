@@ -75,12 +75,25 @@ moon.position.z = 30
 moon.position.x = -10
 
 scene.add(moon)
+//box
+const boxTexture = new THREE.TextureLoader().load("static/images/ell.png")
+const box = new THREE.Mesh(
+  new THREE.BoxGeometry(2.5,2.5,2.5),
+  new THREE.MeshBasicMaterial({map:boxTexture})
+)
 
+scene.add(box)
+box.position.x = 2
+box.position.y = 1
+box.position.z = -5
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
   moon.rotation.x += 0.05;
   moon.rotation.y += 0.075;
   moon.rotation.z += 0.05;
+  
+  box.rotation.x +=0.01
+  box.rotation.y +=0.001
 
   camera.position.z = t * -.01;
   camera.position.x = t * -0.0002;
@@ -103,6 +116,23 @@ function animate() {
 }
 
 animate();
+// const raycaster = new THREE.Raycaster();
+// const clickMouse = new THREE.Vector2();
+// const moveMouse = new THREE. Vector2();
+// var clickable = THREE.Object3D;
+
+// window.addEventListener('click', event => {
+//   clickMouse.x = (event.clientX / window.innerWidth)*2 -1;
+//   clickMouse.y = -(event.clientY / window.innerHeight)*2 -1;
+//   raycaster.setFromCamera(clickMouse, camera)
+//   const found = raycaster.intersectObjects(scene.children);
+
+//   if (found.length > 0 && found[0].object==box ){
+
+//   }
+  
+  
+// })
 
 
 // Create a THREE.js scene
