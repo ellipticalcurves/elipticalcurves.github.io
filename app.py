@@ -1,15 +1,26 @@
 from flask import Flask, redirect, url_for, render_template
+#from flask_sqlalchemy import SQLAlchemy
+from dash import Dash
+import csv
 
-app = Flask(__name__)
+server = Flask(__name__)
+#server.config['SQL_ALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+#db = SQLAlchemy(server)
 
-@app.route("/")
-@app.route("/home")
+#class Youtube(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+# app = Dash(__name__, server=server, url_base_pathname='/ATM_Data_Anlaysis/')
+
+
+
+@server.route("/")
+@server.route("/home")
 def home():
     return render_template("index.html")
 
-@app.route("/scene")
+@server.route("/scene")
 def threes():
     return render_template("scene.html")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    server.run(debug=True, port=5000)

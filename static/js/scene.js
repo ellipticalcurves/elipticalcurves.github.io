@@ -75,13 +75,25 @@ moon.position.z = 30
 moon.position.x = -10
 
 scene.add(moon)
+//box
+const boxTexture = new THREE.TextureLoader().load("static/images/ell.png")
+const box = new THREE.Mesh(
+  new THREE.BoxGeometry(2.5,2.5,2.5),
+  new THREE.MeshBasicMaterial({map:boxTexture})
+)
 
+scene.add(box)
+box.position.x = 2
+box.position.y = 1
+box.position.z = -5
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
   moon.rotation.x += 0.05;
   moon.rotation.y += 0.075;
   moon.rotation.z += 0.05;
-
+  
+  box.rotation.x +=0.01
+  box.rotation.y +=0.001
   camera.position.z = t * -.01;
   camera.position.x = t * -0.0002;
   camera.rotation.y = t * -0.0002;

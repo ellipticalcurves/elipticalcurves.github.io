@@ -88,9 +88,9 @@ box.position.y = 1
 box.position.z = -5
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  moon.rotation.x += 0.05;
-  moon.rotation.y += 0.075;
-  moon.rotation.z += 0.05;
+  moon.rotation.x += 0.005;
+  moon.rotation.y += 0.0075;
+  moon.rotation.z += 0.005;
   
   box.rotation.x +=0.01
   box.rotation.y +=0.001
@@ -106,8 +106,8 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
 
-  torus.rotation.x += 0.01;
-  torus.rotation.y += 0.005;
+  torus.rotation.x += 0.001;
+  torus.rotation.y += 0.0005;
   //torus.rotation.z += 0.01;
   //moon.rotation.x += 0.005;
 
