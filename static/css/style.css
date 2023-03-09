@@ -41,6 +41,8 @@ canvas {
 }
 header {
   background: var(--dark-bg);
+  color: white;
+  background-color: black;
   grid-column: 2 / span 5;
   font-size: 2.5rem;
   padding: 2rem;
@@ -50,6 +52,8 @@ section {
   grid-column: 2 / 8;
   padding: 1rem;
   background: var(--dark-bg);
+  color: white;
+  background-color: black;
   font-size: 1.25rem;
   line-height: 1.5;
   margin-bottom: var(--spacing);
@@ -63,8 +67,8 @@ blockquote {
 }
 
 blockquote p {
-  color: black;
-  background-color: white;
+  color: white;
+  background-color: black;
   font-size: 4rem;
   display: inline;
   line-height: 1;
