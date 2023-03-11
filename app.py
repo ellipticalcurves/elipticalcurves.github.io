@@ -6,7 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output#, State, MATCH, ALL, no_update
 #from dash.dependencies import no_update
-
+import csv
 import pandas as pd
 import plotly.express as px
 from sklearn.manifold import MDS
@@ -26,6 +26,15 @@ images = np.array(images)
 features = extract_features(images)
 mds = MDS(n_components=2)
 projected_features = mds.fit_transform(features)
+
+with open("data.csv","a") as file:
+    writer = csv.writer(file)
+    for i in range(len(urls)):
+        writer.writerow(tuple(video_data[i]))
+with open("xy.csv", "a") as file:
+    writer = csv.writer(file)
+    for i in range(len(urls)):
+        writer.writerow((projected_features[:, 0],projected_features[:, 1]))
 
 #class Youtube(db.Model):
 #    id = db.Column(db.Integer, primary_key=True)
@@ -60,14 +69,14 @@ navbar = html.Nav(
     children=[
         html.A("Home", href="/home"),
         html.A("Scene", href="/scene"),
-        html.A("DashApp", href="/dashapp"),
+        html.A("DashApp", href="/Dashapp"),
     ],
     className="navbar navbar-expand-lg navbar-dark bg-dark",
 )
 app.layout = html.Div(style={'backgroundColor': '#000000'}, children=[
     navbar,
     html.H1(
-        children='Hello Dash',
+        children='Moodboard',
         style={
             'textAlign': 'center',
             'color': colors['text']
