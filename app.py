@@ -12,6 +12,8 @@ import plotly.express as px
 from sklearn.manifold import MDS
 from extra import key
 from data import *
+from flask_frozen import Freezer
+
 #from extra import projected_features, urls, titles, channels, views
 server = Flask(__name__);
 #server.config['SQL_ALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -38,7 +40,10 @@ with open("xy.csv", "a") as file:
 
 #class Youtube(db.Model):
 #    id = db.Column(db.Integer, primary_key=True)
+
 app = Dash(__name__, server=server, url_base_pathname='/Dashapp/')
+
+freezer = Freezer(server)
 
 colors = {
     'background': '#FFFFFF',
@@ -134,4 +139,5 @@ def threes():
     return render_template("scene.html")
 
 if __name__ == '__main__':
-    server.run(debug=True, port=5000)
+    #server.run(debug=True, port=5000)
+    freezer.freeze()
