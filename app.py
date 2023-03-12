@@ -7,38 +7,47 @@ import plotly.graph_objects as go
 from dash.dependencies import Input, Output#, State, MATCH, ALL, no_update
 #from dash.dependencies import no_update
 import csv
+import numpy as np
 import pandas as pd
 import plotly.express as px
-from sklearn.manifold import MDS
-from extra import key
-from data import *
+
 #from extra import projected_features, urls, titles, channels, views
 server = Flask(__name__);
 #server.config['SQL_ALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 #db = SQLAlchemy(server)
 
-API_KEY = key()
-video_data = get_data(API_KEY,15,"US")
-urls, titles, channels, views = parse_variables(video_data)
-folder_thumbnails(urls)
-images = [preprocess_image(f"thumbnails/image_{i}.jpg") for i in range(len(urls))]
-images = np.array(images)
-features = extract_features(images)
-mds = MDS(n_components=2)
-projected_features = mds.fit_transform(features)
+# with open("data.csv","r") as file:
+#     reader = csv.reader(file)
+#     video_data = list(reader)
 
-with open("data.csv","a") as file:
-    writer = csv.writer(file)
-    for i in range(len(urls)):
-        writer.writerow(tuple(video_data[i]))
-with open("xy.csv", "a") as file:
-    writer = csv.writer(file)
-    for i in range(len(urls)):
-        writer.writerow((projected_features[:, 0],projected_features[:, 1]))
+# video_data = pd.DataFrame()
+
+# with open("xy.csv", "r") as file:
+#     reader = csv.reader(file)
+#     projected_features = list(reader)
+# projected_features= np.array(projected_features)
+# print(projected_features)
 
 #class Youtube(db.Model):
 #    id = db.Column(db.Integer, primary_key=True)
 app = Dash(__name__, server=server, url_base_pathname='/Dashapp/')
+
+def parse_variables(video_data):
+    urls = []
+    titles = []
+    channels = []
+    views = []
+    for i,j,k,l in video_data:
+        titles.append(i)
+        urls.append(j)
+        channels.append(k)
+        views.append(int(l))
+    return urls, titles, channels, views
+
+video_data = pd.read_csv("data.csv")
+projected_features = pd.read_csv("xy.csv")
+
+urls, titles, channels, views = video_data["urls"], video_data["titles"], video_data["channels"], video_data["views"], 
 
 colors = {
     'background': '#FFFFFF',
@@ -46,8 +55,8 @@ colors = {
 }
 size = views
 fig = go.Figure(data=[go.Scatter(
-    x=projected_features[:, 0],
-    y=projected_features[:, 1],
+    x=projected_features["x"],
+    y=projected_features["y"],
     #z=projected_features[:, 2],
     #color =views,
     mode='markers+text',
